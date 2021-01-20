@@ -29,4 +29,21 @@ public class RatingService {
 
         return movieRepository.findById(id);
     }
+
+    public Optional<Movie> decreasingRating(int id, int dId){
+        movieRepository.findById(id);
+        System.out.println("Movie rate before decreasing: " + movieRepository.findById(id).get().getRate());
+
+        if(movieRepository.findById(id).isPresent() && movieRepository.findById(id).get().getRate() <= 10){
+            movieRepository.findById(id).get()
+                    .setRate((movieRepository.findById(id).get().getRate())-dId);
+        }
+        if(movieRepository.findById(id).get().getRate()<0){
+            movieRepository.findById(id).get().setRate(0);
+        }
+        System.out.println("Movie rate after decreasing: "+ movieRepository.findById(id).get().getRate());
+
+        return movieRepository.findById(id);
+    }
+
 }
