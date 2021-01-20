@@ -42,7 +42,13 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<Movie>> update(@PathVariable int id){
+    public ResponseEntity<Optional<Movie>> updateByIncreasingRating(@PathVariable int id){
         return ResponseEntity.ok(ratingService.increaseRating(id));
     }
+
+    @PutMapping("/{id}/{dId}")
+    public ResponseEntity<Optional<Movie>> updateByDecreasingRating(@PathVariable int id, @PathVariable int dId){
+        return ResponseEntity.ok(ratingService.decreasingRating(id, dId));
+    }
+
 }
