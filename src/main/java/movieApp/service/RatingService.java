@@ -45,5 +45,4 @@ public class RatingService {
 
         return movieRepository.findById(id);
     }
-
 }
