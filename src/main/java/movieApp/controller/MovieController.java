@@ -51,4 +51,9 @@ public class MovieController {
         return ResponseEntity.ok(ratingService.decreasingRating(id, dId));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        movieService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }
