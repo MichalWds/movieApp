@@ -42,18 +42,24 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<Movie>> updateByIncreasingRating(@PathVariable int id){
+    public ResponseEntity<Optional<Movie>> updateByIncreasingRating(@PathVariable int id) {
         return ResponseEntity.ok(ratingService.increaseRating(id));
     }
 
     @PutMapping("/{id}/{dId}")
-    public ResponseEntity<Optional<Movie>> updateByDecreasingRating(@PathVariable int id, @PathVariable int dId){
+    public ResponseEntity<Optional<Movie>> updateByDecreasingRating(@PathVariable int id, @PathVariable int dId) {
         return ResponseEntity.ok(ratingService.decreasingRating(id, dId));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
         movieService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<List<Movie>> deleteAll() {
+        movieService.deleteAll();
         return ResponseEntity.ok().build();
     }
 }

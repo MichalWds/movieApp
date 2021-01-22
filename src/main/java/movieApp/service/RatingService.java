@@ -26,7 +26,6 @@ public class RatingService {
                     .setRate((movieRepository.findById(id).get().getRate())+1);
         }
         System.out.println("Movie rate after increase: "+ movieRepository.findById(id).get().getRate());
-
         return movieRepository.findById(id);
     }
 
