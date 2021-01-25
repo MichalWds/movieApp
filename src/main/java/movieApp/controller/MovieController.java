@@ -28,9 +28,9 @@ public class MovieController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Movie>> findById(@PathVariable int id) {
-        Optional<Movie> byId = movieService.findById(id);
-        if (byId.isPresent()) {
-            return ResponseEntity.ok(byId);
+        Optional<Movie> findById = movieService.findById(id);
+        if (findById.isPresent()) {
+            return ResponseEntity.ok(findById);
         } else {
             return ResponseEntity.notFound().build();
         }

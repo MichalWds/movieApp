@@ -1,8 +1,6 @@
 package movieApp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Movie {
@@ -13,15 +11,17 @@ public class Movie {
     private String tittle;
     private String language;
     private int rate;
+    private int authorId;
 
     public Movie(){
     }
 
-    public Movie(int id, String tittle, String language, int rate) {
+    public Movie(int id, String tittle, String language, int rate, int authorId) {
         this.id = id;
         this.tittle = tittle;
         this.language = language;
         this.rate = rate;
+        this.authorId = authorId;
     }
 
     public int getId() {
@@ -54,5 +54,13 @@ public class Movie {
 
     public void setRate(int rate) {
         this.rate = rate;
+    }
+
+    public int getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(int authorId) {
+        this.authorId = authorId;
     }
 }
