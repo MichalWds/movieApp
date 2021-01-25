@@ -13,8 +13,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleRuntimeException(RuntimeException ex, WebRequest request){
-
         return ResponseEntity.badRequest().build();
+    }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> handleRuntimeException(IllegalArgumentException ex, WebRequest request){
+        return ResponseEntity.badRequest().build();
     }
 }

@@ -19,13 +19,14 @@ public class RatingService {
 
     public Optional<Movie> increaseRating(int id){
         movieRepository.findById(id);
-        System.out.println("Movie rate before increase: " + movieRepository.findById(id).get().getRate());
 
-        if(movieRepository.findById(id).isPresent() && movieRepository.findById(id).get().getRate() < 10){
-            movieRepository.findById(id).get()
-                    .setRate((movieRepository.findById(id).get().getRate())+1);
+        int rating = movieRepository.findById(id).get().getRate();
+
+        System.out.println("Movie rate before increase: " + rating);
+        if(movieRepository.findById(id).isPresent() && rating < 10){
+            movieRepository.findById(id).get().setRate(++rating);
         }
-        System.out.println("Movie rate after increase: "+ movieRepository.findById(id).get().getRate());
+        System.out.println("Movie rate after increase: "+ rating);
         return movieRepository.findById(id);
     }
 

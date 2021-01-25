@@ -21,7 +21,12 @@ public class MovieService {
     }
 
     public Movie save(Movie movie) {
-        return movieRepository.save(movie);
+        if (movie.getRate() > 10 || movie.getRate() < 0) {
+            System.out.println("Wrong rating3!");
+            throw new RuntimeException("Wrong rating!");
+        } else {
+            return movieRepository.save(movie);
+        }
     }
 
     public List<Movie> findAll() {
