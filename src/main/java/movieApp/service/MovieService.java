@@ -12,9 +12,9 @@ public class MovieService {
 
     private MovieRepository movieRepository;
 
-    private List<Movie> movieList = List.of(new Movie(1, "Killer", "PL", 5),
-            new Movie(2, "Killer2", "PL", 6),
-            new Movie(3, "Killer3", "PL", 7));
+    private List<Movie> movieList = List.of(new Movie(1, "Killer", "PL", 5, 4),
+            new Movie(2, "Killer2", "PL", 3,4),
+            new Movie(3, "Killer3", "PL", 4, 4));
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
