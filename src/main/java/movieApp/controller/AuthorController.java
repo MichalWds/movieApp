@@ -1,5 +1,6 @@
 package movieApp.controller;
 
+import movieApp.exception.AuthorException;
 import movieApp.model.Author;
 import movieApp.model.Movie;
 import movieApp.service.AuthorService;
@@ -19,9 +20,8 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    //wyswietl wszystkich autorow
     @GetMapping
-    public ResponseEntity<List<Author>> findAllAuthors(){
+    public ResponseEntity<List<Author>> findAllAuthors() throws AuthorException {
         return ResponseEntity.ok(authorService.findAll());
      }
 
@@ -39,17 +39,15 @@ public class AuthorController {
     public ResponseEntity<Author> save(@RequestBody Author author, @PathVariable int authorId) {
         return ResponseEntity.ok(authorService.save(author));
     }
-//all movies autora
-//    @GetMapping("/{authorId}/movies")
-//    public ResponseEntity<Author> sss(@RequestBody Author author, @PathVariable int authorId){
-//        return ResponseEntity.ok(authorService.findAllMovies(author));
-//    }
 
+    @GetMapping("/{authorId}/movies")
+    public ResponseEntity<Optional<List<Movie>>> findAuthorAllMovies(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
+        return ResponseEntity.ok(authorService.findAllMovies(authorId, author));
+    }
 
-//
-//    //srednia ocena wszystkich filmow autora
-//    @PutMapping("/{authorId/rating}")
-//
-//    }
+    @GetMapping("/{authorId}/rating")
+    public ResponseEntity<Double> s(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
+        return ResponseEntity.ok(authorService.showAuthorMovieAverageRating(authorId));
+    }
 
 }
