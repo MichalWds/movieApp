@@ -1,10 +1,10 @@
 package movieApp.controller;
 
+import movieApp.exception.MovieException;
 import movieApp.exception.RatingException;
 import movieApp.model.Movie;
 import movieApp.service.MovieService;
 import movieApp.service.RatingService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +38,16 @@ public class MovieController {
         return ResponseEntity.ok(movieService.findAllENGMovies());
     }
 
+    @GetMapping("/hRating")
+    public ResponseEntity<List<Movie>> findAllMoviesWithRatingHigherThanFive() {
+        return ResponseEntity.ok(movieService.findAllMoviesWithRatingHigherThanFive());
+    }
+
+    @GetMapping("/lRating")
+    public ResponseEntity<List<Movie>> findAllMoviesWithRatingLowerThanFive() {
+        return ResponseEntity.ok(movieService.findAllMoviesWithRatingLowerThanFive());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Movie>> findById(@PathVariable int id) {
         Optional<Movie> findById = movieService.findById(id);
@@ -54,12 +64,12 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<Movie>> updateByIncreasingRating(@PathVariable int id) {
+    public ResponseEntity<Optional<Movie>> updateByIncreasingRating(@PathVariable int id) throws MovieException {
         return ResponseEntity.ok(ratingService.increaseRating(id));
     }
 
     @PutMapping("/{id}/{dId}")
-    public ResponseEntity<Optional<Movie>> updateByDecreasingRating(@PathVariable int id, @PathVariable int dId) {
+    public ResponseEntity<Optional<Movie>> updateByDecreasingRating(@PathVariable int id, @PathVariable int dId) throws MovieException {
         return ResponseEntity.ok(ratingService.decreasingRating(id, dId));
     }
 

@@ -26,12 +26,6 @@ public class Author {
     public Author(){
     }
 
-    public Author(int id, String name, String lastName) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-    }
-
     public int getId() {
         return id;
     }

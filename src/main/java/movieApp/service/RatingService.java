@@ -1,5 +1,6 @@
 package movieApp.service;
 
+import movieApp.exception.MovieException;
 import movieApp.model.Movie;
 import movieApp.repository.MovieRepository;
 import org.springframework.stereotype.Service;
@@ -9,38 +10,44 @@ import java.util.Optional;
 @Service
 public class RatingService {
 
-    private MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
 
     public RatingService(MovieService movieService, MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
-    public Optional<Movie> increaseRating(int id){
-        movieRepository.findById(id);
+    public Optional<Movie> increaseRating(int id) throws MovieException {
+        Optional<Movie> movieById = movieRepository.findById(id);
+        if (movieById.isPresent()) {
+            int rating = movieById.get().getRate();
 
-        int rating = movieRepository.findById(id).get().getRate();
-
-        System.out.println("Movie rate before increase: " + rating);
-        if(movieRepository.findById(id).isPresent() && rating < 10){
-            movieRepository.findById(id).get().setRate(++rating);
+            System.out.println("Movie rating before increase: " + rating);
+            if (rating < 10) {
+                movieById.get().setRate(++rating);
+            }
+            System.out.println("Movie rating after increase: " + rating);
+        }else {
+           throw new MovieException();
         }
-        System.out.println("Movie rate after increase: "+ rating);
-        return movieRepository.findById(id);
+        return movieById;
     }
 
-    public Optional<Movie> decreasingRating(int id, int dId){
-        movieRepository.findById(id);
-        System.out.println("Movie rate before decreasing: " + movieRepository.findById(id).get().getRate());
+    public Optional<Movie> decreasingRating(int id, int dId) throws MovieException {
+        Optional<Movie> movieById = movieRepository.findById(id);
+        if (movieById.isPresent()) {
+            int rating = movieById.get().getRate();
 
-        if(movieRepository.findById(id).isPresent() && movieRepository.findById(id).get().getRate() <= 10){
-            movieRepository.findById(id).get()
-                    .setRate((movieRepository.findById(id).get().getRate())-dId);
+            System.out.println("Movie rating before decreasing: " + rating);
+            if (rating <= 10) {
+                movieById.get().setRate(rating - dId);
+                if (movieById.get().getRate() < 0) {
+                    movieById.get().setRate(0);
+                }
+                System.out.println("Movie rating after decreasing: " + movieById.get().getRate());
+            }
+        }else {
+            throw new MovieException();
         }
-        if(movieRepository.findById(id).get().getRate()<0){
-            movieRepository.findById(id).get().setRate(0);
-        }
-        System.out.println("Movie rate after decreasing: "+ movieRepository.findById(id).get().getRate());
-
-        return movieRepository.findById(id);
+        return movieById;
     }
 }

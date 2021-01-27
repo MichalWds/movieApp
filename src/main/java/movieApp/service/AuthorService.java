@@ -6,7 +6,6 @@ import movieApp.model.Movie;
 import movieApp.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +47,7 @@ public class AuthorService {
         }
     }
 
-    public Optional<List<Movie>> findAllMovies(int id, Author author) throws AuthorException {
+    public Optional<List<Movie>> findAuthorAllMovies(int id, Author author) throws AuthorException {
         Optional<Author> authorId = authorRepository.findById(id);
 
         if (authorId.isPresent()) {
@@ -58,7 +57,7 @@ public class AuthorService {
         }
     }
 
-    public double showAuthorMovieAverageRating(int id) throws AuthorException {
+    public double showAuthorMoviesAverageRating(int id) throws AuthorException {
         Optional<Author> authorId = authorRepository.findById(id);
         double ratingSum = 0.0;
         double average;
