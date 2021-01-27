@@ -1,6 +1,7 @@
 package movieApp.advice;
 
 import movieApp.exception.AuthorException;
+import movieApp.exception.MovieException;
 import movieApp.exception.RatingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,17 +24,22 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RatingException.class)
-    public ResponseEntity<Object> handleRuntimeException(RatingException ex){
-        return new ResponseEntity<>("RatingException: Wrong Rating!", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> handleRatingException(RatingException ex){
+        return new ResponseEntity<>("RatingException: Incorrect Rating!", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleRuntimeException(IllegalArgumentException ex, WebRequest request){
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request){
         return new ResponseEntity<>("IllegalArgumentException: Incorrect arguments.", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(AuthorException.class)
-    public ResponseEntity<Object> handleRuntimeException(AuthorException ex, WebRequest request){
+    public ResponseEntity<Object> handleAuthorException(AuthorException ex, WebRequest request){
         return new ResponseEntity<>("AuthorException: Not found any author with given id.", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MovieException.class)
+    public ResponseEntity<Object> handleMovieException(MovieException ex, WebRequest request){
+        return new ResponseEntity<>("MovieException: Not found any movie with given id.", HttpStatus.BAD_REQUEST);
     }
 }

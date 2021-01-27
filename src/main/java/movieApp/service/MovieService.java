@@ -17,6 +17,7 @@ public class MovieService {
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
+
     public Movie save(Movie movie) throws RatingException {
 
         if (movie.getRate() > 10 || movie.getRate() < 0) {
@@ -36,6 +37,16 @@ public class MovieService {
         List<Movie> movieList = movieRepository.findAll();
 
         return movieList.stream().filter(movie -> movie.getLanguage().equals("ENG")).collect(Collectors.toList());
+    }
+
+    public List<Movie> findAllMoviesWithRatingHigherThanFive() {
+        List<Movie> movieList = movieRepository.findAll();
+        return movieList.stream().filter(movie -> movie.getRate() >= 5).collect(Collectors.toList());
+    }
+
+    public List<Movie> findAllMoviesWithRatingLowerThanFive() {
+        List<Movie> movieList = movieRepository.findAll();
+        return movieList.stream().filter(movie -> movie.getRate() < 5).collect(Collectors.toList());
     }
 
     public List<Movie> findAll() {

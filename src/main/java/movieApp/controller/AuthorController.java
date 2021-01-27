@@ -42,12 +42,11 @@ public class AuthorController {
 
     @GetMapping("/{authorId}/movies")
     public ResponseEntity<Optional<List<Movie>>> findAuthorAllMovies(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
-        return ResponseEntity.ok(authorService.findAllMovies(authorId, author));
+        return ResponseEntity.ok(authorService.findAuthorAllMovies(authorId, author));
     }
 
     @GetMapping("/{authorId}/rating")
     public ResponseEntity<Double> s(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
-        return ResponseEntity.ok(authorService.showAuthorMovieAverageRating(authorId));
+        return ResponseEntity.ok(authorService.showAuthorMoviesAverageRating(authorId));
     }
-
 }
