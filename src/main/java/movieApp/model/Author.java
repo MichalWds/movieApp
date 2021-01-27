@@ -1,17 +1,27 @@
 package movieApp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 public class Author {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String lastName;
+
+    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
+    private List<Movie> movieList = new ArrayList<>();
+
+    public Author(String name, String lastName, List<Movie> movieList){
+        this.name = name;
+        this.lastName = lastName;
+        this.movieList = movieList;
+    }
 
     public Author(){
     }
@@ -44,5 +54,13 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Movie> getMovieList() {
+        return movieList;
+    }
+
+    public void setMovieList(List<Movie> movieList) {
+        this.movieList = movieList;
     }
 }

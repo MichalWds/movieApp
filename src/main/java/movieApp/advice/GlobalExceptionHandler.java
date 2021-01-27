@@ -1,5 +1,6 @@
 package movieApp.advice;
 
+import movieApp.exception.RatingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,7 +22,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("RuntimeException", HttpStatus.BAD_REQUEST);
     }
 
-
+    @ExceptionHandler(RatingException.class)
+    public ResponseEntity<Object> handleRuntimeException(RatingException ex){
+        return new ResponseEntity<>("RatingException: Wrong Rating!", HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

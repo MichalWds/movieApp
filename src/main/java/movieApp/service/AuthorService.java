@@ -34,6 +34,8 @@ public class AuthorService {
     }
 
     public Author save(Author author) {
+        author.getMovieList().add(new Movie(1, "movieOne", "PL", 5,author));
+        author.getMovieList().add(new Movie(2, "movieTwo", "ENG", 6,author));
         //check if name contains ONLY alphabets
         if (author.getName().matches("[a-zA-Z]+") && author.getLastName().matches("[a-zA-Z]+")) {
             return authorRepository.save(author);
@@ -43,10 +45,10 @@ public class AuthorService {
         }
     }
 
+
 //    public List<Movie> findAllMovies(Author author){
 //        return
 //    }
-
 
 
 
