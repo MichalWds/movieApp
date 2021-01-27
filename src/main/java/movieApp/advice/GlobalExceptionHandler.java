@@ -1,11 +1,11 @@
 package movieApp.advice;
 
+import movieApp.exception.AuthorException;
 import movieApp.exception.RatingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
@@ -28,8 +28,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleRuntimeException(IllegalArgumentException ex, WebRequest request){
-        return ResponseEntity.badRequest().build();
+        return new ResponseEntity<>("IllegalArgumentException: Incorrect arguments.", HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AuthorException.class)
+    public ResponseEntity<Object> handleRuntimeException(AuthorException ex, WebRequest request){
+        return new ResponseEntity<>("AuthorException: Not found any author with given id.", HttpStatus.BAD_REQUEST);
     }
 }

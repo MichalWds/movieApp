@@ -9,11 +9,9 @@ import java.util.Optional;
 @Service
 public class RatingService {
 
-    private MovieService movieService;
     private MovieRepository movieRepository;
 
     public RatingService(MovieService movieService, MovieRepository movieRepository) {
-        this.movieService = movieService;
         this.movieRepository = movieRepository;
     }
 
