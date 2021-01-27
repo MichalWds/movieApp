@@ -1,27 +1,33 @@
 package movieApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 public class Movie {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //czytaj po id encji
     private int id;
     private String tittle;
     private String language;
     private int rate;
-    private int authorId;
+
+    @ManyToOne
+    @JoinColumn(name ="author_id")
+    @JsonIgnore
+    private Author author;
 
     public Movie(){
     }
 
-    public Movie(int id, String tittle, String language, int rate, int authorId) {
+    public Movie(int id, String tittle, String language, int rate, Author author) {
         this.id = id;
         this.tittle = tittle;
         this.language = language;
         this.rate = rate;
-        this.authorId = authorId;
+        this.author = author;
     }
 
     public int getId() {
@@ -56,11 +62,11 @@ public class Movie {
         this.rate = rate;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

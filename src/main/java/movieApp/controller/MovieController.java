@@ -1,8 +1,10 @@
 package movieApp.controller;
 
+import movieApp.exception.RatingException;
 import movieApp.model.Movie;
 import movieApp.service.MovieService;
 import movieApp.service.RatingService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,16 @@ public class MovieController {
         return ResponseEntity.ok(movieService.findAll());
     }
 
+    @GetMapping("/onlyPL")
+    public ResponseEntity<List<Movie>> findAllPolishMovies() {
+        return ResponseEntity.ok(movieService.findAllPLMovies());
+    }
+
+    @GetMapping("/onlyENG")
+    public ResponseEntity<List<Movie>> findAllEnglishMovies() {
+        return ResponseEntity.ok(movieService.findAllENGMovies());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Movie>> findById(@PathVariable int id) {
         Optional<Movie> findById = movieService.findById(id);
@@ -37,7 +49,7 @@ public class MovieController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Movie> save(@RequestBody Movie movie, @PathVariable int id) {
+    public ResponseEntity<Movie> save(@RequestBody Movie movie, @PathVariable int id) throws RatingException {
         return ResponseEntity.ok(movieService.save(movie));
     }
 
