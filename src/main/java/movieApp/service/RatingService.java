@@ -22,7 +22,7 @@ public class RatingService {
             int rating = movieById.get().getRate();
 
             System.out.println("Movie rating before increase: " + rating);
-            if (rating < 10) {
+            if (rating < 10 && rating >=0) {
                 movieById.get().setRate(++rating);
             }
             System.out.println("Movie rating after increase: " + rating);
