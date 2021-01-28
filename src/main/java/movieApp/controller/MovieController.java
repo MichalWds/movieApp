@@ -33,14 +33,19 @@ public class MovieController {
         return ResponseEntity.ok(movieService.findAllMoviesByLang(lang));
     }
 
-    @GetMapping("/hRating")
-    public ResponseEntity<List<Movie>> findAllMoviesWithRatingHigherThanFive() {
-        return ResponseEntity.ok(movieService.findAllMoviesWithRatingHigherThanFive());
+    @GetMapping("/hRating/{number}")
+    public ResponseEntity<List<Movie>> findAllMoviesWithRatingHigherThan(@PathVariable int number) {
+        return ResponseEntity.ok(movieService.findAllMoviesWithRatingHigherThan(number));
     }
 
-    @GetMapping("/lRating")
-    public ResponseEntity<List<Movie>> findAllMoviesWithRatingLowerThanFive() {
-        return ResponseEntity.ok(movieService.findAllMoviesWithRatingLowerThanFive());
+    @GetMapping("/lRating/{number}")
+    public ResponseEntity<List<Movie>> findAllMoviesWithRatingLowerThan(@PathVariable int number) {
+        return ResponseEntity.ok(movieService.findAllMoviesWithRatingLowerThan(number));
+    }
+
+    @GetMapping("/rating/{number}")
+    public ResponseEntity<List<Movie>> findAllMoviesWithRatingEqualTo(@PathVariable int number) {
+        return ResponseEntity.ok(movieService.findAllMoviesWithRatingEqualToGivenRating(number));
     }
 
     @GetMapping("/{id}")

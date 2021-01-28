@@ -20,7 +20,7 @@ public class AuthorService {
 
     public Optional<Author> findById(int id) {
         if (id < 0) {
-            throw new IllegalArgumentException("NOT FOUND");
+            throw new IllegalArgumentException();
         } else {
             return authorRepository.findById(id);
         }

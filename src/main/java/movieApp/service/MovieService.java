@@ -33,14 +33,19 @@ public class MovieService {
         return movieList.stream().filter(movie -> movie.getLanguage().equals(lang)).collect(Collectors.toList());
     }
 
-    public List<Movie> findAllMoviesWithRatingHigherThanFive() {
+    public List<Movie> findAllMoviesWithRatingHigherThan(int number) {
         List<Movie> movieList = movieRepository.findAll();
-        return movieList.stream().filter(movie -> movie.getRate() >= 5).collect(Collectors.toList());
+        return movieList.stream().filter(movie -> movie.getRate() > number).collect(Collectors.toList());
     }
 
-    public List<Movie> findAllMoviesWithRatingLowerThanFive() {
+    public List<Movie> findAllMoviesWithRatingLowerThan(int number) {
         List<Movie> movieList = movieRepository.findAll();
-        return movieList.stream().filter(movie -> movie.getRate() < 5).collect(Collectors.toList());
+        return movieList.stream().filter(movie -> movie.getRate() < number).collect(Collectors.toList());
+    }
+
+    public List<Movie> findAllMoviesWithRatingEqualToGivenRating(int number) {
+        List<Movie> movieList = movieRepository.findAll();
+        return movieList.stream().filter(movie -> movie.getRate() == number).collect(Collectors.toList());
     }
 
     public List<Movie> findAll() {
