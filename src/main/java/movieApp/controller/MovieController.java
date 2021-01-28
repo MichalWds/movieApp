@@ -28,14 +28,9 @@ public class MovieController {
         return ResponseEntity.ok(movieService.findAll());
     }
 
-    @GetMapping("/onlyPL")
-    public ResponseEntity<List<Movie>> findAllPolishMovies() {
-        return ResponseEntity.ok(movieService.findAllPLMovies());
-    }
-
-    @GetMapping("/onlyENG")
-    public ResponseEntity<List<Movie>> findAllEnglishMovies() {
-        return ResponseEntity.ok(movieService.findAllENGMovies());
+    @GetMapping("/lang/{lang}")
+    public ResponseEntity<List<Movie>> findAllMoviesByLang(@PathVariable String lang) {
+        return ResponseEntity.ok(movieService.findAllMoviesByLang(lang));
     }
 
     @GetMapping("/hRating")

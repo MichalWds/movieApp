@@ -27,16 +27,10 @@ public class MovieService {
         }
     }
 
-    public List<Movie> findAllPLMovies() {
+    public List<Movie> findAllMoviesByLang(String lang){
         List<Movie> movieList = movieRepository.findAll();
 
-        return movieList.stream().filter(movie -> movie.getLanguage().equals("PL")).collect(Collectors.toList());
-    }
-
-    public List<Movie> findAllENGMovies() {
-        List<Movie> movieList = movieRepository.findAll();
-
-        return movieList.stream().filter(movie -> movie.getLanguage().equals("ENG")).collect(Collectors.toList());
+        return movieList.stream().filter(movie -> movie.getLanguage().equals(lang)).collect(Collectors.toList());
     }
 
     public List<Movie> findAllMoviesWithRatingHigherThanFive() {
