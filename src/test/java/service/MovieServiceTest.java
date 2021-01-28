@@ -5,7 +5,6 @@ import movieApp.model.Author;
 import movieApp.model.Movie;
 import movieApp.repository.MovieRepository;
 import movieApp.service.MovieService;
-import movieApp.service.RatingService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

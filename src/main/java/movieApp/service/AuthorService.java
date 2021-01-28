@@ -27,7 +27,7 @@ public class AuthorService {
     }
 
     public List<Author> findAll() throws AuthorException {
-        if (authorRepository.findAll().size() > 1) {
+        if (authorRepository.findAll().size() >= 1) {
             return authorRepository.findAll();
         } else {
             throw new AuthorException();
@@ -35,9 +35,11 @@ public class AuthorService {
     }
 
     public Author save(Author author) {
-        author.getMovieList().add(new Movie(1, "movieOne", "PL", 5, author));
-        author.getMovieList().add(new Movie(2, "movieTwo", "ENG", 6, author));
-        author.getMovieList().add(new Movie(3, "movieThree", "PL", 9, author));
+
+//        author.getMovieList().add(new Movie(1, "movieOne", "PL", 5, author));
+//        author.getMovieList().add(new Movie(2, "movieTwo", "ENG", 6, author));
+//        author.getMovieList().add(new Movie(3, "movieThree", "PL", 9, author));
+
         //check if name contains ONLY alphabets
         if (author.getName().matches("[a-zA-Z]+") && author.getLastName().matches("[a-zA-Z]+")) {
             return authorRepository.save(author);

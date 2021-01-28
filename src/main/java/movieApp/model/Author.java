@@ -17,6 +17,13 @@ public class Author {
     @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
     private List<Movie> movieList = new ArrayList<>();
 
+    public Author(int id, String name, String lastName, List<Movie> movieList) {
+        this.id = id;
+        this.name = name;
+        this.lastName = lastName;
+        this.movieList = movieList;
+    }
+
     public Author(String name, String lastName, List<Movie> movieList){
         this.name = name;
         this.lastName = lastName;
