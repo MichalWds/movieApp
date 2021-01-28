@@ -1,6 +1,8 @@
 package movieApp.service;
 
+import movieApp.exception.MovieException;
 import movieApp.exception.RatingException;
+import movieApp.model.Lang;
 import movieApp.model.Movie;
 import movieApp.repository.MovieRepository;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class MovieService {
         }
     }
 
-    public List<Movie> findAllMoviesByLang(String lang){
+    public List<Movie> findAllMoviesByLang(Lang lang) {
         List<Movie> movieList = movieRepository.findAll();
 
         return movieList.stream().filter(movie -> movie.getLanguage().equals(lang)).collect(Collectors.toList());
@@ -48,19 +50,35 @@ public class MovieService {
         return movieList.stream().filter(movie -> movie.getRate() == number).collect(Collectors.toList());
     }
 
-    public List<Movie> findAll() {
-        return movieRepository.findAll();
+    public List<Movie> findAll() throws MovieException {
+        if (movieRepository.findAll().size() > 0) {
+            return movieRepository.findAll();
+        } else {
+            throw new MovieException();
+        }
     }
 
-    public Optional<Movie> findById(int id) {
-        return movieRepository.findById(id);
+    public Optional<Movie> findById(int id) throws MovieException {
+        if (movieRepository.findById(id).isPresent()) {
+            return movieRepository.findById(id);
+        } else {
+            throw new MovieException();
+        }
     }
 
-    public void deleteAll() {
-        movieRepository.deleteAll();
+    public void deleteAll() throws MovieException {
+        if (movieRepository.findAll().size() > 0) {
+            movieRepository.deleteAll();
+        } else {
+            throw new MovieException();
+        }
     }
 
-    public void deleteById(int id) {
-        movieRepository.deleteById(id);
+    public void deleteById(int id) throws MovieException {
+        if (movieRepository.findById(id).isPresent()) {
+            movieRepository.deleteById(id);
+        } else {
+            throw new MovieException();
+        }
     }
 }

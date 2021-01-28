@@ -46,7 +46,7 @@ public class AuthorController {
     }
 
     @GetMapping("/{authorId}/rating")
-    public ResponseEntity<Double> s(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
+    public ResponseEntity<Double> showAuthorMoviesAverageRating(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
         return ResponseEntity.ok(authorService.showAuthorMoviesAverageRating(authorId));
     }
 }

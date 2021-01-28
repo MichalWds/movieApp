@@ -11,7 +11,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //czytaj po id encji
     private int id;
     private String tittle;
-    private String language;
+    private Lang language;
     private int rate;
 
     @ManyToOne
@@ -22,7 +22,7 @@ public class Movie {
     public Movie(){
     }
 
-    public Movie(int id, String tittle, String language, int rate, Author author) {
+    public Movie(int id, String tittle, Lang language, int rate, Author author) {
         this.id = id;
         this.tittle = tittle;
         this.language = language;
@@ -30,7 +30,7 @@ public class Movie {
         this.author = author;
     }
 
-    public Movie(String tittle, String language, int rate, Author author) {
+    public Movie(String tittle, Lang language, int rate, Author author) {
         this.tittle = tittle;
         this.language = language;
         this.rate = rate;
@@ -53,11 +53,11 @@ public class Movie {
         this.tittle = tittle;
     }
 
-    public String getLanguage() {
+    public Lang getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(Lang language) {
         this.language = language;
     }
 

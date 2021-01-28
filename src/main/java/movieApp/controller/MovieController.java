@@ -2,6 +2,7 @@ package movieApp.controller;
 
 import movieApp.exception.MovieException;
 import movieApp.exception.RatingException;
+import movieApp.model.Lang;
 import movieApp.model.Movie;
 import movieApp.service.MovieService;
 import movieApp.service.RatingService;
@@ -24,12 +25,12 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Movie>> findAll() {
+    public ResponseEntity<List<Movie>> findAll() throws MovieException {
         return ResponseEntity.ok(movieService.findAll());
     }
 
     @GetMapping("/lang/{lang}")
-    public ResponseEntity<List<Movie>> findAllMoviesByLang(@PathVariable String lang) {
+    public ResponseEntity<List<Movie>> findAllMoviesByLang(@PathVariable Lang lang) {
         return ResponseEntity.ok(movieService.findAllMoviesByLang(lang));
     }
 
@@ -47,9 +48,9 @@ public class MovieController {
     public ResponseEntity<List<Movie>> findAllMoviesWithRatingEqualTo(@PathVariable int number) {
         return ResponseEntity.ok(movieService.findAllMoviesWithRatingEqualToGivenRating(number));
     }
-
+//todo throw exception in movieService when id doesn't exist
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Movie>> findById(@PathVariable int id) {
+    public ResponseEntity<Optional<Movie>> findById(@PathVariable int id) throws MovieException {
         Optional<Movie> findById = movieService.findById(id);
         if (findById.isPresent()) {
             return ResponseEntity.ok(findById);
@@ -74,13 +75,13 @@ public class MovieController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
+    public ResponseEntity<Void> delete(@PathVariable int id) throws MovieException {
         movieService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
-    public ResponseEntity<List<Movie>> deleteAll() {
+    public ResponseEntity<List<Movie>> deleteAll() throws MovieException {
         movieService.deleteAll();
         return ResponseEntity.ok().build();
     }

@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static movieApp.model.Lang.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -43,12 +44,12 @@ public class RatingServiceTest {
      */
     @BeforeEach
     public void setUp() throws RatingException {
-        movie = new Movie(1, "SomeTittle", "ENG", 4, author);
+        movie = new Movie(1, "SomeTittle", ENG, 4, author);
         movieService.save(movie);
     }
 
     @AfterEach
-    public void cleanUp() {
+    public void cleanUp() throws MovieException {
         movieService.deleteAll();
     }
 
