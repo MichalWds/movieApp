@@ -2,6 +2,7 @@ package service;
 
 import movieApp.exception.AuthorException;
 import movieApp.model.Author;
+import movieApp.model.Lang;
 import movieApp.model.Movie;
 import movieApp.repository.AuthorRepository;
 import movieApp.service.AuthorService;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static movieApp.model.Lang.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
@@ -38,8 +40,8 @@ public class AuthorServiceTest {
     @BeforeEach
     public void setUp() {
         author = new Author(2, "testName", "testLastName", List.of());
-        Movie movie = new Movie(2,"someTittle", "PL", 4, author);
-        Movie movie2 = new Movie(3,"someTittle2", "ENG", 6, author);
+        Movie movie = new Movie(2,"someTittle", PL, 4, author);
+        Movie movie2 = new Movie(3,"someTittle2", ENG, 6, author);
         List<Movie> movies = new ArrayList<>();
         movies.add(movie);
         movies.add(movie2);

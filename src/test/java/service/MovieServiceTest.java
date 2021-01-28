@@ -1,5 +1,6 @@
 package service;
 
+import movieApp.exception.MovieException;
 import movieApp.exception.RatingException;
 import movieApp.model.Author;
 import movieApp.model.Movie;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static movieApp.model.Lang.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -37,14 +39,14 @@ public class MovieServiceTest {
 
     @BeforeEach
     public void setUp() {
-        movie = new Movie(2, "SomeTittle", "ENG", 4, author);
+        movie = new Movie(2, "SomeTittle", ENG, 4, author);
     }
 
     public List<Movie> prepareMovieList() {
-        Movie movie1 = new Movie(2,"SomeTittle", "ENG", 4, author);
-        Movie movie2 = new Movie(3,"SomeTittle", "ENG", 5, author);
-        Movie movie3 = new Movie(4,"SomeTittle", "PL", 6, author);
-        Movie movie4 = new Movie(5,"SomeTittle", "PL", 7, author);
+        Movie movie1 = new Movie(2,"SomeTittle", ENG, 4, author);
+        Movie movie2 = new Movie(3,"SomeTittle", ENG, 5, author);
+        Movie movie3 = new Movie(4,"SomeTittle", PL, 6, author);
+        Movie movie4 = new Movie(5,"SomeTittle", PL, 7, author);
         List<Movie> movieList = new ArrayList<>();
         movieList.add(movie1);
         movieList.add(movie2);
@@ -55,7 +57,7 @@ public class MovieServiceTest {
 
     @Test
     public void testSaveMovieCorrectly() throws RatingException {
-        Movie movie2 = new Movie( "SomeTittle", "ENG",4, author);
+        Movie movie2 = new Movie( "SomeTittle", ENG,4, author);
 
         when(movieRepository.save(movie2)).thenReturn(movie);
 
@@ -79,12 +81,11 @@ public class MovieServiceTest {
 
     @Test
     public void testFindAllMoviesByLangNotEmptySet() {
-        String lang = "ENG";
         List<Movie> preparedMovieList = prepareMovieList();
 
         when(movieRepository.findAll()).thenReturn(preparedMovieList);
-        List<Movie> filteredList = movieService.findAllMoviesByLang(lang);
-        List<Movie> checkedIfOnlyOneLangList = filteredList.stream().filter(movie -> movie.getLanguage().equals(lang)).collect(Collectors.toList());
+        List<Movie> filteredList = movieService.findAllMoviesByLang(ENG);
+        List<Movie> checkedIfOnlyOneLangList = filteredList.stream().filter(movie -> movie.getLanguage().equals(ENG)).collect(Collectors.toList());
 
         verify(movieRepository, times(1)).findAll();
         assertThat(preparedMovieList.size()).isGreaterThan(filteredList.size());
@@ -94,11 +95,11 @@ public class MovieServiceTest {
 
     @Test
     public void testFindAllMoviesByLangEmptySet() {
-        String lang = "DE";
+
         List<Movie> preparedMovieList = prepareMovieList();
 
         when(movieRepository.findAll()).thenReturn(preparedMovieList);
-        List<Movie> filteredList = movieService.findAllMoviesByLang(lang);
+        List<Movie> filteredList = movieService.findAllMoviesByLang(DE);
 
         verify(movieRepository, times(1)).findAll();
         assertThat(preparedMovieList.size()).isGreaterThan(filteredList.size());
@@ -145,8 +146,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void testFindAllMovies() {
-
+    public void testFindAllMovies() throws MovieException {
         when(movieRepository.findAll()).thenReturn(List.of(new Movie()));
 
         List<Movie> movies = movieService.findAll();
@@ -155,8 +155,14 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void testFindMovieById() {
+    public void testFindAllMoviesThrowMovieException() {
 
+        assertThat(movieRepository.findAll().size()).isEqualTo(0);
+        assertThatExceptionOfType(MovieException.class).isThrownBy(() -> movieService.findAll());
+    }
+
+    @Test
+    public void testFindMovieById() throws MovieException {
         when(movieRepository.findById(2)).thenReturn(Optional.of(movie));
 
         Optional<Movie> movie = movieService.findById(2);
@@ -165,19 +171,36 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void testDeleteMovieById() {
-
-        movieService.deleteById(2);
-
-        verify(movieRepository, atLeastOnce()).deleteById(2);
+    public void testFindMovieByIdThrowMovieException() {
+        assertThatExceptionOfType(MovieException.class).isThrownBy(() -> movieService.findById(movie.getId()));
     }
 
 
     @Test
-    public void testDeleteAllMovies() {
+    public void testDeleteMovieById() throws MovieException {
+        when(movieRepository.findById(movie.getId())).thenReturn(Optional.ofNullable(movie));
+
+        movieService.deleteById(movie.getId());
+
+        verify(movieRepository, atLeastOnce()).deleteById(movie.getId());
+    }
+
+    @Test
+    public void testDeleteMovieByIdThrowMovieException() {
+        assertThatExceptionOfType(MovieException.class).isThrownBy(() -> movieService.deleteById(movie.getId()));
+    }
+
+    @Test
+    public void testDeleteAllMovies() throws MovieException {
+        List<Movie> preparedMovies = prepareMovieList();
+        when(movieRepository.findAll()).thenReturn(preparedMovies);
 
         movieService.deleteAll();
 
         verify(movieRepository, atLeastOnce()).deleteAll();
+    }
+    @Test
+    public void testDeleteAllMoviesThrowMovieException() {
+        assertThatExceptionOfType(MovieException.class).isThrownBy(() -> movieService.deleteAll());
     }
 }
