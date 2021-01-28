@@ -30,6 +30,13 @@ public class Movie {
         this.author = author;
     }
 
+    public Movie(String tittle, String language, int rate, Author author) {
+        this.tittle = tittle;
+        this.language = language;
+        this.rate = rate;
+        this.author = author;
+    }
+
     public int getId() {
         return id;
     }
