@@ -1,11 +1,10 @@
-package service;
+package movieApp.service;
 
 import movieApp.exception.MovieException;
 import movieApp.exception.RatingException;
 import movieApp.model.Author;
 import movieApp.model.Movie;
 import movieApp.repository.MovieRepository;
-import movieApp.service.MovieService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

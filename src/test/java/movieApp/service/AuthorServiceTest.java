@@ -1,10 +1,10 @@
-package service;
+package movieApp.service;
 
 import movieApp.exception.AuthorException;
+import movieApp.exception.MovieException;
 import movieApp.model.Author;
 import movieApp.model.Movie;
 import movieApp.repository.AuthorRepository;
-import movieApp.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +38,7 @@ public class AuthorServiceTest {
 
     @BeforeEach
     public void setUp() {
-        author = new Author(2, "testName", "testLastName", List.of());
+        author = new Author(2, "testName", "testLastName", new ArrayList<>());
         Movie movie = new Movie(2,"someTittle", PL, 4, author);
         Movie movie2 = new Movie(3,"someTittle2", ENG, 6, author);
         List<Movie> movies = new ArrayList<>();
@@ -80,7 +80,8 @@ public class AuthorServiceTest {
 
     @Test
     public void testSaveCorrectly() {
-        Author author2 = new Author(1, "Name", "LastName", List.of(movie));
+//      Author author2 = new Author(1, "Name", "LastName", List.of(movie)); //list.of is interface
+        Author author2 = new Author(1, "Name", "LastName", new ArrayList<>(List.of(movie)));
 
         when(authorRepository.save(author2)).thenReturn(author);
         Author author = authorService.save(author2);
@@ -134,5 +135,37 @@ public class AuthorServiceTest {
         double rating = authorService.showAuthorMoviesAverageRating(author.getId());
 
         assertThat(rating).isEqualTo(5.0);
+    }
+
+    @Test
+    public void testDeleteAuthorById() throws MovieException, AuthorException {
+        when(authorRepository.findById(author.getId())).thenReturn(Optional.ofNullable(author));
+
+        authorService.deleteById(author.getId());
+
+        verify(authorRepository, atLeastOnce()).deleteById(author.getId());
+    }
+
+    @Test
+    public void testDeleteAuthorByIdThrowMovieException() {
+        assertThatExceptionOfType(AuthorException.class).isThrownBy(() -> authorService.deleteById(movie.getId()));
+    }
+
+    @Test
+    public void testDeleteAllAuthors() throws MovieException, AuthorException {
+        List<Author> authors = new ArrayList<>();
+        authors.add(author);
+        authors.add(new Author());
+
+        when(authorRepository.findAll()).thenReturn(authors);
+
+        authorService.deleteAll();
+
+        verify(authorRepository, atLeastOnce()).deleteAll();
+    }
+
+    @Test
+    public void testDeleteAllAuthorsThrowMovieException() {
+        assertThatExceptionOfType(AuthorException.class).isThrownBy(() -> authorService.deleteAll());
     }
 }
