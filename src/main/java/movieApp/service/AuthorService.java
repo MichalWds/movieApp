@@ -1,6 +1,7 @@
 package movieApp.service;
 
 import movieApp.exception.AuthorException;
+import movieApp.exception.MovieException;
 import movieApp.model.Author;
 import movieApp.model.Movie;
 import movieApp.repository.AuthorRepository;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static movieApp.model.Lang.ENG;
+import static movieApp.model.Lang.PL;
 
 @Service
 public class AuthorService {
@@ -36,10 +40,11 @@ public class AuthorService {
 
     public Author save(Author author) {
 
-//        author.getMovieList().add(new Movie(1, "movieOne", "PL", 5, author));
-//        author.getMovieList().add(new Movie(2, "movieTwo", "ENG", 6, author));
-//        author.getMovieList().add(new Movie(3, "movieThree", "PL", 9, author));
-
+        for (Movie movie : author.getMovieList()) {
+            if (movie.getAuthor() == null) {
+                movie.setAuthor(author);
+            }
+        }
         //check if name contains ONLY alphabets
         if (author.getName().matches("[a-zA-Z]+") && author.getLastName().matches("[a-zA-Z]+")) {
             return authorRepository.save(author);
@@ -72,5 +77,21 @@ public class AuthorService {
             throw new AuthorException();
         }
         return Math.floor(average * 100) / 100;
+    }
+
+    public void deleteAll() throws AuthorException {
+        if (authorRepository.findAll().size() > 0) {
+            authorRepository.deleteAll();
+        } else {
+            throw new AuthorException();
+        }
+    }
+
+    public void deleteById(int id) throws AuthorException {
+        if (authorRepository.findById(id).isPresent()) {
+            authorRepository.deleteById(id);
+        } else {
+            throw new AuthorException();
+        }
     }
 }

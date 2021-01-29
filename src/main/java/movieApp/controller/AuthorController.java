@@ -1,6 +1,7 @@
 package movieApp.controller;
 
 import movieApp.exception.AuthorException;
+import movieApp.exception.MovieException;
 import movieApp.model.Author;
 import movieApp.model.Movie;
 import movieApp.service.AuthorService;
@@ -48,5 +49,17 @@ public class AuthorController {
     @GetMapping("/{authorId}/rating")
     public ResponseEntity<Double> showAuthorMoviesAverageRating(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
         return ResponseEntity.ok(authorService.showAuthorMoviesAverageRating(authorId));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id) throws AuthorException {
+        authorService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<List<Author>> deleteAll() throws AuthorException {
+        authorService.deleteAll();
+        return ResponseEntity.ok().build();
     }
 }
