@@ -5,6 +5,7 @@ import movieApp.exception.RatingException;
 import movieApp.model.Lang;
 import movieApp.model.Movie;
 import movieApp.repository.MovieRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

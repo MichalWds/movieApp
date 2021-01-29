@@ -2,7 +2,6 @@ package service;
 
 import movieApp.exception.AuthorException;
 import movieApp.model.Author;
-import movieApp.model.Lang;
 import movieApp.model.Movie;
 import movieApp.repository.AuthorRepository;
 import movieApp.service.AuthorService;

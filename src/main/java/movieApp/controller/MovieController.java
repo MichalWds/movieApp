@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/movie")
+@RequestMapping("/movies")
 public class MovieController {
 
     private MovieService movieService;
@@ -48,7 +48,7 @@ public class MovieController {
     public ResponseEntity<List<Movie>> findAllMoviesWithRatingEqualTo(@PathVariable int number) {
         return ResponseEntity.ok(movieService.findAllMoviesWithRatingEqualToGivenRating(number));
     }
-//todo throw exception in movieService when id doesn't exist
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Movie>> findById(@PathVariable int id) throws MovieException {
         Optional<Movie> findById = movieService.findById(id);
