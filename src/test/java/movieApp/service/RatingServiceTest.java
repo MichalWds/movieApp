@@ -65,6 +65,7 @@ public class RatingServiceTest {
         assertThat(movieOptional).isNotEmpty();
         assertThat(movieRatingBeforeIncrease).isLessThan(movie.getRate());
         assertThat(movieRatingAfterIncreasing).isEqualTo(movie.getRate());
+        verify(movieRepository, atLeastOnce()).save(movie);
     }
 
     @Test
@@ -116,6 +117,7 @@ public class RatingServiceTest {
         assertThat(movieOptional).isNotEmpty();
         assertThat(movieRatingBeforeDecrease).isGreaterThan(movie.getRate());
         assertThat(movieRatingAfterDecrease).isEqualTo(movie.getRate());
+        verify(movieRepository, atLeastOnce()).save(movie);
     }
 
     @Test
