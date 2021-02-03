@@ -24,6 +24,7 @@ public class RatingService {
             System.out.println("Movie rating before increase: " + rating);
             if (rating < 10 && rating >=0) {
                 movieById.get().setRate(++rating);
+                movieRepository.save(movieById.get());
             }
             System.out.println("Movie rating after increase: " + rating);
         }else {
@@ -43,6 +44,7 @@ public class RatingService {
                 if (movieById.get().getRate() < 0) {
                     movieById.get().setRate(0);
                 }
+                movieRepository.save(movieById.get());
                 System.out.println("Movie rating after decreasing: " + movieById.get().getRate());
             }
         }else {
