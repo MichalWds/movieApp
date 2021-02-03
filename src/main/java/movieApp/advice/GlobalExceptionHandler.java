@@ -35,11 +35,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthorException.class)
     public ResponseEntity<Object> handleAuthorException(AuthorException ex, WebRequest request){
-        return new ResponseEntity<>("AuthorException: Not found any author with given id.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("AuthorException: Not found any author with given id.", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MovieException.class)
     public ResponseEntity<Object> handleMovieException(MovieException ex, WebRequest request){
-        return new ResponseEntity<>("MovieException: Not found any movie with given id.", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("MovieException: Not found any movie with given id.", HttpStatus.NOT_FOUND);
     }
 }
