@@ -27,7 +27,7 @@ public class AuthorController {
      }
 
     @GetMapping("/{authorId}")
-    public ResponseEntity<Optional<Author>> findById(@PathVariable int authorId) {
+    public ResponseEntity<Optional<Author>> findById(@PathVariable int authorId) throws AuthorException {
         Optional<Author> findById = authorService.findById(authorId);
         if (findById.isPresent()) {
             return ResponseEntity.ok(findById);
@@ -42,12 +42,12 @@ public class AuthorController {
     }
 
     @GetMapping("/{authorId}/movies")
-    public ResponseEntity<Optional<List<Movie>>> findAuthorAllMovies(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
-        return ResponseEntity.ok(authorService.findAuthorAllMovies(authorId, author));
+    public ResponseEntity<Optional<List<Movie>>> findAuthorAllMovies(@PathVariable int authorId) throws AuthorException {
+        return ResponseEntity.ok(authorService.findAuthorAllMovies(authorId));
     }
 
     @GetMapping("/{authorId}/rating")
-    public ResponseEntity<Double> showAuthorMoviesAverageRating(@RequestBody Author author, @PathVariable int authorId) throws AuthorException {
+    public ResponseEntity<Double> showAuthorMoviesAverageRating(@PathVariable int authorId) throws AuthorException {
         return ResponseEntity.ok(authorService.showAuthorMoviesAverageRating(authorId));
     }
 

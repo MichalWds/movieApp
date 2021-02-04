@@ -48,7 +48,7 @@ public class AuthorServiceTest {
     }
 
     @Test
-    public void testFindByIdCorrectly() {
+    public void testFindByIdCorrectly() throws AuthorException {
         when(authorRepository.findById(1)).thenReturn(Optional.of(author));
 
         Optional<Author> author = authorService.findById(1);
@@ -57,9 +57,8 @@ public class AuthorServiceTest {
     }
 
     @Test
-    public void testFindByIdThrowIllegalArgEx() {
-        author.setId(-3);
-        assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> authorService.findById(author.getId()));
+    public void testFindByIdThrowAuthorException() {
+        assertThatExceptionOfType(AuthorException.class).isThrownBy(() -> authorService.findById(author.getId()));
     }
 
     @Test
@@ -74,13 +73,11 @@ public class AuthorServiceTest {
 
     @Test
     public void testFindAllAuthorsThrowAuthorException() {
-
         assertThatExceptionOfType(AuthorException.class).isThrownBy(() -> authorService.findAll());
     }
 
     @Test
     public void testSaveCorrectly() {
-//      Author author2 = new Author(1, "Name", "LastName", List.of(movie)); //list.of is interface
         Author author2 = new Author(1, "Name", "LastName", new ArrayList<>(List.of(movie)));
 
         when(authorRepository.save(author2)).thenReturn(author);
@@ -106,7 +103,7 @@ public class AuthorServiceTest {
     public void testFindAuthorAllMoviesThrowAuthorException(){
 
         assertThat(authorRepository.findById(author.getId())).isEmpty();
-        assertThatExceptionOfType(AuthorException.class).isThrownBy(() -> authorService.findAuthorAllMovies(author.getId(),author));
+        assertThatExceptionOfType(AuthorException.class).isThrownBy(() -> authorService.findAuthorAllMovies(author.getId()));
     }
 
     @Test
@@ -114,7 +111,7 @@ public class AuthorServiceTest {
 
         when(authorRepository.findById(author.getId())).thenReturn(Optional.ofNullable(author));
 
-        Optional<List<Movie>> authorAllMovies = authorService.findAuthorAllMovies(author.getId(),author);
+        Optional<List<Movie>> authorAllMovies = authorService.findAuthorAllMovies(author.getId());
 
         assertThat(authorAllMovies).isNotEmpty();
         assertThat(authorAllMovies.get().size()).isEqualTo(2);

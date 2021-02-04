@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static movieApp.model.Lang.PL;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -58,7 +59,7 @@ public class MovieControllerTestIT {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
 
-        given(movieRepository.findAll()).willReturn((movieList));
+        when(movieRepository.findAll()).thenReturn((movieList));
         mockMvc.perform(get("/movies"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(equalTo("MovieException: Not found any movie with given id.")));
@@ -68,9 +69,9 @@ public class MovieControllerTestIT {
     void testShouldFoundAllMovies() throws Exception {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(1, "someTittle", Lang.PL, 5, author));
+        movieList.add(new Movie(1, "someTittle", PL, 5, author));
 
-        given(movieRepository.findAll()).willReturn(movieList);
+        when(movieRepository.findAll()).thenReturn(movieList);
         mockMvc.perform(get("/movies"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("[{\"id\":1,\"tittle\":\"someTittle\",\"language\":\"PL\",\"rate\":5}]")));
@@ -79,9 +80,9 @@ public class MovieControllerTestIT {
     @Test
     void testShouldNotFoundMovieByIdThrowException() throws Exception {
         Author author = new Author();
-        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", Lang.PL, 3, author));
+        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", PL, 3, author));
 
-        given(movieRepository.findById(movie.get().getId())).willReturn(Optional.empty());
+        when(movieRepository.findById(movie.get().getId())).thenReturn(Optional.empty());
         mockMvc.perform(get("/movies/1"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(equalTo("MovieException: Not found any movie with given id.")));
@@ -90,9 +91,9 @@ public class MovieControllerTestIT {
     @Test
     void testShouldFoundMovieById() throws Exception {
         Author author = new Author();
-        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", Lang.PL, 3, author));
+        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", PL, 3, author));
 
-        given(movieRepository.findById(movie.get().getId())).willReturn(Optional.of(movie.get()));
+        when(movieRepository.findById(movie.get().getId())).thenReturn(Optional.of(movie.get()));
         mockMvc.perform(get("/movies/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("{\"id\":1,\"tittle\":\"tittle\",\"language\":\"PL\",\"rate\":3}")));
@@ -102,10 +103,10 @@ public class MovieControllerTestIT {
     void testShouldFindAllMoviesByLang() throws Exception {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(1, "someTittle", Lang.PL, 5, author));
+        movieList.add(new Movie(1, "someTittle", PL, 5, author));
         movieList.add(new Movie(2, "someTittle2", Lang.ENG, 5, author));
 
-        given(movieRepository.findAll()).willReturn(movieList);
+        when(movieRepository.findAll()).thenReturn(movieList);
         mockMvc.perform(get("/movies/lang/PL"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("[{\"id\":1,\"tittle\":\"someTittle\",\"language\":\"PL\",\"rate\":5}]")));
@@ -115,10 +116,10 @@ public class MovieControllerTestIT {
     void testShouldNotFindAllMoviesByLangReturnEmptySet() throws Exception {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(1, "someTittle", Lang.PL, 5, author));
+        movieList.add(new Movie(1, "someTittle", PL, 5, author));
         movieList.add(new Movie(2, "someTittle2", Lang.ENG, 5, author));
 
-        given(movieRepository.findAll()).willReturn(movieList);
+        when(movieRepository.findAll()).thenReturn(movieList);
         mockMvc.perform(get("/movies/lang/DE"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("[]")));
@@ -128,10 +129,10 @@ public class MovieControllerTestIT {
     void testShouldFindAllMoviesWithRatingHigherThan() throws Exception {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(1, "someTittle", Lang.PL, 5, author));
+        movieList.add(new Movie(1, "someTittle", PL, 5, author));
         movieList.add(new Movie(2, "someTittle2", Lang.ENG, 7, author));
 
-        given(movieRepository.findAll()).willReturn(movieList);
+        when(movieRepository.findAll()).thenReturn(movieList);
         mockMvc.perform(get("/movies/hRating/5"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("[{\"id\":2,\"tittle\":\"someTittle2\",\"language\":\"ENG\",\"rate\":7}]")));
@@ -141,10 +142,10 @@ public class MovieControllerTestIT {
     void testShouldFindAllMoviesWithRatingLowerThan() throws Exception {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(1, "someTittle", Lang.PL, 5, author));
+        movieList.add(new Movie(1, "someTittle", PL, 5, author));
         movieList.add(new Movie(2, "someTittle2", Lang.ENG, 7, author));
 
-        given(movieRepository.findAll()).willReturn(movieList);
+        when(movieRepository.findAll()).thenReturn(movieList);
         mockMvc.perform(get("/movies/lRating/6"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("[{\"id\":1,\"tittle\":\"someTittle\",\"language\":\"PL\",\"rate\":5}]")));
@@ -154,10 +155,10 @@ public class MovieControllerTestIT {
     void testShouldFindAllMoviesWithRatingEqualTo() throws Exception {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(1, "someTittle", Lang.PL, 5, author));
+        movieList.add(new Movie(1, "someTittle", PL, 5, author));
         movieList.add(new Movie(2, "someTittle2", Lang.ENG, 7, author));
 
-        given(movieRepository.findAll()).willReturn(movieList);
+        when(movieRepository.findAll()).thenReturn(movieList);
         mockMvc.perform(get("/movies/rating/5"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("[{\"id\":1,\"tittle\":\"someTittle\",\"language\":\"PL\",\"rate\":5}]")));
@@ -167,10 +168,10 @@ public class MovieControllerTestIT {
     void testsShouldDeleteAll() throws Exception {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
-        movieList.add(new Movie(1, "someTittle", Lang.PL, 5, author));
+        movieList.add(new Movie(1, "someTittle", PL, 5, author));
         movieList.add(new Movie(2, "someTittle2", Lang.ENG, 7, author));
 
-        given(movieRepository.findAll()).willReturn(movieList);
+        when(movieRepository.findAll()).thenReturn(movieList);
         mockMvc.perform(delete("/movies"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("")));
@@ -181,7 +182,7 @@ public class MovieControllerTestIT {
         Author author = new Author();
         List<Movie> movieList = new ArrayList<>();
 
-        given(movieRepository.findAll()).willReturn(movieList);
+        when(movieRepository.findAll()).thenReturn(movieList);
         mockMvc.perform(delete("/movies"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(equalTo("MovieException: Not found any movie with given id.")));
@@ -190,9 +191,9 @@ public class MovieControllerTestIT {
     @Test
     void testShouldDeleteById() throws Exception {
         Author author = new Author();
-        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", Lang.PL, 3, author));
+        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", PL, 3, author));
 
-        given(movieRepository.findById(movie.get().getId())).willReturn(movie);
+        when(movieRepository.findById(movie.get().getId())).thenReturn(movie);
         mockMvc.perform(delete("/movies/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("")));
@@ -201,9 +202,9 @@ public class MovieControllerTestIT {
     @Test
     void testShouldNotDeleteById() throws Exception {
         Author author = new Author();
-        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", Lang.PL, 3, author));
+        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", PL, 3, author));
 
-        given(movieRepository.findById(movie.get().getId())).willReturn(Optional.empty());
+        when(movieRepository.findById(movie.get().getId())).thenReturn(Optional.empty());
         mockMvc.perform(delete("/movies/1"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(equalTo("MovieException: Not found any movie with given id.")));
@@ -212,9 +213,9 @@ public class MovieControllerTestIT {
     @Test
     void testShouldIncreaseMovieRating() throws Exception {
         Author author = new Author();
-        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", Lang.PL, 3, author));
+        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", PL, 3, author));
 
-        given(movieRepository.findById(movie.get().getId())).willReturn(movie);
+        when(movieRepository.findById(movie.get().getId())).thenReturn(movie);
         mockMvc.perform(put("/movies/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -224,9 +225,9 @@ public class MovieControllerTestIT {
     @Test
     void testShouldNotIncreaseMovieRatingMaxRating() throws Exception {
         Author author = new Author();
-        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", Lang.PL, 10, author));
+        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", PL, 10, author));
 
-        given(movieRepository.findById(movie.get().getId())).willReturn(movie);
+        when(movieRepository.findById(movie.get().getId())).thenReturn(movie);
         mockMvc.perform(put("/movies/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -236,9 +237,9 @@ public class MovieControllerTestIT {
     @Test
     void testShouldDecreaseMovieRating() throws Exception {
         Author author = new Author();
-        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", Lang.PL, 10, author));
+        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", PL, 10, author));
 
-        given(movieRepository.findById(movie.get().getId())).willReturn(movie);
+        when(movieRepository.findById(movie.get().getId())).thenReturn(movie);
         mockMvc.perform(put("/movies/1/9"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -248,14 +249,26 @@ public class MovieControllerTestIT {
     @Test
     void testShouldDecreaseMovieRatingNotLowerThanZero() throws Exception {
         Author author = new Author();
-        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", Lang.PL, 3, author));
+        Optional<Movie> movie = Optional.of(new Movie(1, "tittle", PL, 3, author));
 
-        given(movieRepository.findById(movie.get().getId())).willReturn(movie);
+        when(movieRepository.findById(movie.get().getId())).thenReturn(movie);
         mockMvc.perform(put("/movies/1/9"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("{\"id\":1,\"tittle\":\"tittle\",\"language\":\"PL\",\"rate\":0}")));
     }
+
+//    @Test
+//    void save() throws Exception {
+//        Author author = new Author();
+//        Movie movie = new Movie(1, "tittle", PL, 31, author);
+//
+//        mockMvc.perform(post("/movies/1"))
+//                .andDo(print())
+//                .andExpect(status().isBadRequest())
+//                .andExpect(content().string(equalTo("RatingException: Incorrect Rating!")));
+//    }
+
 }
 
 

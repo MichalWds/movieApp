@@ -22,11 +22,11 @@ public class AuthorService {
         this.authorRepository = authorRepository;
     }
 
-    public Optional<Author> findById(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException();
-        } else {
+    public Optional<Author> findById(int id) throws AuthorException {
+        if (authorRepository.findById(id).isPresent()) {
             return authorRepository.findById(id);
+        } else {
+            throw new AuthorException();
         }
     }
 
@@ -54,7 +54,7 @@ public class AuthorService {
         }
     }
 
-    public Optional<List<Movie>> findAuthorAllMovies(int id, Author author) throws AuthorException {
+    public Optional<List<Movie>> findAuthorAllMovies(int id) throws AuthorException {
         Optional<Author> authorId = authorRepository.findById(id);
 
         if (authorId.isPresent()) {
