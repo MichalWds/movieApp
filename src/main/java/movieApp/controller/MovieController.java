@@ -59,8 +59,8 @@ public class MovieController {
         }
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<Movie> save(@RequestBody Movie movie, @PathVariable int id) throws RatingException {
+    @PostMapping
+    public ResponseEntity<Movie> save(@RequestBody Movie movie) throws RatingException {
         return ResponseEntity.ok(movieService.save(movie));
     }
 

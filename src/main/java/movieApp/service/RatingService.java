@@ -1,6 +1,7 @@
 package movieApp.service;
 
 import movieApp.exception.MovieException;
+import movieApp.exception.RatingException;
 import movieApp.model.Movie;
 import movieApp.repository.MovieRepository;
 import org.springframework.stereotype.Service;
