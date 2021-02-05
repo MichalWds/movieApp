@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 
 import java.util.ArrayList;
@@ -258,17 +260,16 @@ public class MovieControllerTestIT {
                 .andExpect(content().string(equalTo("{\"id\":1,\"tittle\":\"tittle\",\"language\":\"PL\",\"rate\":0}")));
     }
 
-//    @Test
-//    void save() throws Exception {
-//        Author author = new Author();
-//        Movie movie = new Movie(1, "tittle", PL, 31, author);
-//
-//        mockMvc.perform(post("/movies/1"))
-//                .andDo(print())
-//                .andExpect(status().isBadRequest())
-//                .andExpect(content().string(equalTo("RatingException: Incorrect Rating!")));
-//    }
+    @Test
+    void save() throws Exception {
 
+        mockMvc.perform(post("/movies")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"tittle\":\"tittle\",\"language\":\"PL\",\"rate\":4}\""))
+
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
 
 

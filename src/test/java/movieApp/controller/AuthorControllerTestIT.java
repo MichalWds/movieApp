@@ -53,7 +53,6 @@ public class AuthorControllerTestIT {
     @MockBean
     private AuthorRepository authorRepository;
 
-
     @Test
     void testShouldFindAllAuthors() throws Exception {
         Author author = new Author();
