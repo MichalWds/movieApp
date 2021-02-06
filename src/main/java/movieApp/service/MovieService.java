@@ -52,23 +52,26 @@ public class MovieService {
     }
 
     public List<Movie> findAll() throws MovieException {
-        if (movieRepository.findAll().size() > 0) {
-            return movieRepository.findAll();
+        List<Movie> movieList = movieRepository.findAll();
+        if (!movieList.isEmpty()) {
+            return movieList;
         } else {
             throw new MovieException();
         }
     }
 
     public Optional<Movie> findById(int id) throws MovieException {
-        if (movieRepository.findById(id).isPresent()) {
-            return movieRepository.findById(id);
+        Optional<Movie> movie = movieRepository.findById(id);
+        if (movie.isPresent()) {
+            return movie;
         } else {
             throw new MovieException();
         }
     }
 
     public void deleteAll() throws MovieException {
-        if (movieRepository.findAll().size() > 0) {
+        List<Movie> movieList = movieRepository.findAll();
+        if (!movieList.isEmpty()) {
             movieRepository.deleteAll();
         } else {
             throw new MovieException();
@@ -76,7 +79,8 @@ public class MovieService {
     }
 
     public void deleteById(int id) throws MovieException {
-        if (movieRepository.findById(id).isPresent()) {
+        Optional<Movie> movie = movieRepository.findById(id);
+        if (movie.isPresent()) {
             movieRepository.deleteById(id);
         } else {
             throw new MovieException();
