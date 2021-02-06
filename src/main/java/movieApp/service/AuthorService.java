@@ -23,16 +23,19 @@ public class AuthorService {
     }
 
     public Optional<Author> findById(int id) throws AuthorException {
-        if (authorRepository.findById(id).isPresent()) {
-            return authorRepository.findById(id);
+        Optional<Author> author = authorRepository.findById(id);
+
+        if (author.isPresent()) {
+            return author;
         } else {
             throw new AuthorException();
         }
     }
 
     public List<Author> findAll() throws AuthorException {
-        if (authorRepository.findAll().size() >= 1) {
-            return authorRepository.findAll();
+        List<Author> authorList = authorRepository.findAll();
+        if (!authorList.isEmpty()) {
+            return authorList;
         } else {
             throw new AuthorException();
         }
@@ -80,7 +83,8 @@ public class AuthorService {
     }
 
     public void deleteAll() throws AuthorException {
-        if (authorRepository.findAll().size() > 0) {
+        List<Author> authorList = authorRepository.findAll();
+        if (!authorList.isEmpty()) {
             authorRepository.deleteAll();
         } else {
             throw new AuthorException();
@@ -88,7 +92,8 @@ public class AuthorService {
     }
 
     public void deleteById(int id) throws AuthorException {
-        if (authorRepository.findById(id).isPresent()) {
+        Optional<Author> author = authorRepository.findById(id);
+        if (author.isPresent()) {
             authorRepository.deleteById(id);
         } else {
             throw new AuthorException();
