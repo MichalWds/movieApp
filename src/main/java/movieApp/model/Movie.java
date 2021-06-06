@@ -4,13 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "movies")
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //czytaj po id encji
     private int id;
     private String tittle;
+
+    @Enumerated(EnumType.STRING)
     private Lang language;
     private int rate;
 

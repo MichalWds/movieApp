@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity
+@Entity(name="authors")
 public class Author {
 
     @Id
