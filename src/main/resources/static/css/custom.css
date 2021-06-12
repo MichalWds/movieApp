@@ -1,0 +1,54 @@
+.buttonA {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
+
+.buttonB {
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 12px;
+}
+
+.body {
+    background-image: url("templates/backGround.jpg");
+    background-color: #cccccc;
+}
+
+.center {
+    zoom: 300%;
+    right: 50%;
+    bottom: 50%;
+    transform: translate(50%, 50%);
+    position: absolute;
+}
+
+#showhideForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}
+
+#showhideLangForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}

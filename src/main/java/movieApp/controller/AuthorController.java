@@ -1,21 +1,21 @@
 package movieApp.controller;
 
 import movieApp.exception.AuthorException;
-import movieApp.exception.MovieException;
 import movieApp.model.Author;
 import movieApp.model.Movie;
 import movieApp.service.AuthorService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/authors")
 public class AuthorController {
 
-    private AuthorService authorService;
+    private final AuthorService authorService;
 
     public AuthorController(AuthorService authorService) {
         this.authorService = authorService;

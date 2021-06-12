@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/js/custom.js"></script>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <title>Movie Site: Movies</title>
+</head>
+<body>
+<a href="/"> <input type="button" id="btn0" class="buttonA" value="Return"></a>
+<a href="/movies"> <input type="button" id="btn1" class="buttonB" value="Find all movies"></a>
+
+<!--FIND MOVIE BY ID START-->
+<button class="showbtn buttonA">Find movie by id</button>
+<form id="showhideForm" action="" method="post">
+    <label>Write movie Id</label>
+    <a id="movieById"> <input type="text" id="movieByIdInput" name="movieId" placeholder="Enter movie id"/></a>
+    <input type="button" class="btn btn-default" name="submit" value="Submit" onclick="return findMovieById()"/>
+</form>
+<!--FIND MOVIE BY ID END-->
+
+<!--FIND MOVIE BY LANG START-->
+<button class="showLangbtn buttonB">Find movie by language</button>
+<form id="showhideLangForm" action="" method="post">
+    <label>Write movie language</label>
+    <a id="movieByLang"> <input type="text" id="movieByLangInput" name="movieLang" placeholder="Enter movie lang"/></a>
+    <input type="button" class="btn btn-default" name="submit" value="Submit" onclick="return findMovieByLang()"/>
+</form>
+<!--FIND MOVIE BY LANG END-->
+
+<!--<input type="button" id="btn4" class="buttonA" value="Find all movies with rating higher than">-->
+<!--<input type="button" id="btn5" class="buttonB" value="Find all movies with rating lower than">-->
+<!--<input type="button" id="btn6" class="buttonA" value="Find all movies with rating equal to">-->
+<!--<input type="button" id="btn7" class="buttonB" value="Add movie or update existing one">-->
+<!--<input type="button" id="btn8" class="buttonA" value="Increase movie rating by one">-->
+<!--<input type="button" id="btn9" class="buttonB" value="Decrease movie rating by given number">-->
+<!--<input type="button" id="btn10" class="buttonA" value="Delete movie by id">-->
+<!--<input type="button" id="btn11" class="buttonB" value="Delete all movies">-->
+
+
+</body>
+</html>
