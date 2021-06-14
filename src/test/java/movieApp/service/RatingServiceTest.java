@@ -60,7 +60,7 @@ public class RatingServiceTest {
         int movieRatingAfterIncreasing = movie.getRate() + 1;
 
         when(movieRepository.findById(1)).thenReturn(Optional.of(movie));
-        Optional<Movie> movieOptional = ratingService.increaseRating(movie.getId());
+        Optional<Movie> movieOptional = Optional.ofNullable(ratingService.increaseRating(movie.getId()));
 
         assertThat(movieOptional).isNotEmpty();
         assertThat(movieRatingBeforeIncrease).isLessThan(movie.getRate());
@@ -80,7 +80,7 @@ public class RatingServiceTest {
         int movieRatingBeforeIncrease = movie.getRate();
 
         when(movieRepository.findById(1)).thenReturn(Optional.of(movie));
-        Optional<Movie> movieOptional = ratingService.increaseRating(movie.getId());
+        Optional<Movie> movieOptional = Optional.ofNullable(ratingService.increaseRating(movie.getId()));
 
         assertThat(movieOptional).isNotEmpty();
         assertThat(movieRatingBeforeIncrease).isEqualTo(movie.getRate());
@@ -92,7 +92,7 @@ public class RatingServiceTest {
         int movieRatingBeforeIncrease = movie.getRate();
 
         when(movieRepository.findById(1)).thenReturn(Optional.of(movie));
-        Optional<Movie> movieOptional = ratingService.increaseRating(movie.getId());
+        Optional<Movie> movieOptional = Optional.ofNullable(ratingService.increaseRating(movie.getId()));
 
         assertThat(movieOptional).isNotEmpty();
         assertThat(movieRatingBeforeIncrease).isEqualTo(movie.getRate());

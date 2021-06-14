@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/custom.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+    <title>Movie Site: Save movie</title>
+</head>
+<body>
+<a href="/m"> <input type="button" id="btn1" class="buttonB" value="Return"></a>
+
+<h1>Save/Update Movie</h1>
+<form th:action="@{/movies/save}" th:object="${movie}" method="post">
+    <p>Id: <input type="number" th:field="*{id}"/></p>
+    <p>Tittle: <input type="text" th:field="*{tittle}"/></p>
+    <p>Lang: <input type="text" th:field="*{language}"/></p>
+    <p>Rate: <input type="number" th:field="*{rate}"/></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+
+</body>
+</html>

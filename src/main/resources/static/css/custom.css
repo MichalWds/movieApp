@@ -52,3 +52,59 @@
     padding: 14px;
     background: #ececec;
 }
+
+#showhideRatingHForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}
+
+#showhideRatingLForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}
+
+#showhideRatingEqForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}
+
+#saveMovieForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}
+
+#showhideRatingIncreaseForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}
+
+#showhideRatingDecreaseForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}
+
+#showhideRatingDeleteForm{
+    display: none;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #ececec;
+}

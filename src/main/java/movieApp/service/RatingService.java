@@ -1,7 +1,6 @@
 package movieApp.service;
 
 import movieApp.exception.MovieException;
-import movieApp.exception.RatingException;
 import movieApp.model.Movie;
 import movieApp.repository.MovieRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class RatingService {
         this.movieRepository = movieRepository;
     }
 
-    public Optional<Movie> increaseRating(int id) throws MovieException {
+    public Movie increaseRating(int id) throws MovieException {
         Optional<Movie> movieById = movieRepository.findById(id);
         if (movieById.isPresent()) {
             int rating = movieById.get().getRate();
@@ -31,7 +30,7 @@ public class RatingService {
         }else {
            throw new MovieException();
         }
-        return movieById;
+        return movieById.get();
     }
 
     public Optional<Movie> decreasingRating(int id, int dId) throws MovieException {

@@ -18,7 +18,7 @@
 
 <!--FIND MOVIE BY ID START-->
 <button class="showbtn buttonA">Find movie by id</button>
-<form id="showhideForm" action="" method="post">
+<form id="showhideForm" action="" method="get">
     <label>Write movie Id</label>
     <a id="movieById"> <input type="text" id="movieByIdInput" name="movieId" placeholder="Enter movie id"/></a>
     <input type="button" class="btn btn-default" name="submit" value="Submit" onclick="return findMovieById()"/>
@@ -27,19 +27,56 @@
 
 <!--FIND MOVIE BY LANG START-->
 <button class="showLangbtn buttonB">Find movie by language</button>
-<form id="showhideLangForm" action="" method="post">
+<form id="showhideLangForm" action="" method="get">
     <label>Write movie language</label>
     <a id="movieByLang"> <input type="text" id="movieByLangInput" name="movieLang" placeholder="Enter movie lang"/></a>
     <input type="button" class="btn btn-default" name="submit" value="Submit" onclick="return findMovieByLang()"/>
 </form>
 <!--FIND MOVIE BY LANG END-->
 
-<!--<input type="button" id="btn4" class="buttonA" value="Find all movies with rating higher than">-->
-<!--<input type="button" id="btn5" class="buttonB" value="Find all movies with rating lower than">-->
-<!--<input type="button" id="btn6" class="buttonA" value="Find all movies with rating equal to">-->
-<!--<input type="button" id="btn7" class="buttonB" value="Add movie or update existing one">-->
-<!--<input type="button" id="btn8" class="buttonA" value="Increase movie rating by one">-->
-<!--<input type="button" id="btn9" class="buttonB" value="Decrease movie rating by given number">-->
+<!--FIND MOVIE WITH RATING HIGHER THAN START-->
+<button class="showRatingHbtn buttonA">Find all movies with rating higher than</button>
+<form id="showhideRatingHForm" action="" method="get">
+    <label>Write rating</label>
+    <a id="movieByRatingH"> <input type="text" id="movieByRatingHInput" name="movieRatingH" placeholder="Enter lowest rating"/></a>
+    <input type="button" class="btn btn-default" name="submit" value="Submit" onclick="return findMovieByRatingH()"/>
+</form>
+<!--FIND MOVIE WITH RATING HIGHER THAN END-->
+
+<!--FIND MOVIE WITH RATING LOWER THAN START-->
+<button class="showRatingLbtn buttonA">Find all movies with rating lower than</button>
+<form id="showhideRatingLForm" action="" method="get">
+    <label>Write rating</label>
+    <a id="movieByRatingL"> <input type="text" id="movieByRatingLInput" name="movieRatingL" placeholder="Enter highest rating"/></a>
+    <input type="button" class="btn btn-default" name="submit" value="Submit" onclick="return findMovieByRatingL()"/>
+</form>
+<!--FIND MOVIE WITH RATING LOWER THAN END-->
+
+<!--FIND MOVIE WITH RATING EQUAL TO START-->
+<button class="showRatingEqbtn buttonB">Find all movies with rating equal to</button>
+<form id="showhideRatingEqForm" action="" method="get">
+    <label>Write rating</label>
+    <a id="movieByRatingEq"> <input type="text" id="movieByRatingEqInput" name="movieRatingEq" placeholder="Enter equal rating"/></a>
+    <input type="button" class="btn btn-default" name="submit" value="Submit" onclick="return findMovieByRatingEq()"/>
+</form>
+<!--FIND MOVIE WITH RATING EQUAL TO END-->
+
+<!--ADD MOVIE OR UPDATE EXISTING ONE START-->
+<a href="/movies/save"><button class="saveMoviebtn buttonA">Add movie or update existing one</button></a>
+<!--ADD MOVIE OR UPDATE EXISTING ONE END-->
+
+<!--INCREASE MOVIE RATING BY ONE START-->
+<a href="/movies/inc"><button class="showRatingIncreasebtn buttonB">Increase movie rating by one</button></a>
+<!--INCREASE MOVIE RATING BY ONE END-->
+
+<!--DECREASE MOVIE RATING START-->
+<a href="/movies/dec"><button class="showRatingDecreasebtn buttonA">Decrease movie rating by one</button></a>
+<!--DECREASE MOVIE RATING END-->
+
+<!--DELETE MOVIE BY ID START-->
+<a href="/movies/del"><button class="showRatingDeletebtn buttonA">Delete movie by id</button></a>
+<!--DELETE MOVIE BY ID END-->
+
 <!--<input type="button" id="btn10" class="buttonA" value="Delete movie by id">-->
 <!--<input type="button" id="btn11" class="buttonB" value="Delete all movies">-->
 

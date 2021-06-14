@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css"/>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/custom.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+  <title>Movie Site: Increase Movie</title>
+</head>
+<body>
+<a href="/m"> <input type="button" id="btn1" class="buttonB" value="Return"></a>
+<table class="center">
+  <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Lang</th>
+    <th>Rating</th>
+  </tr>
+  <tr>
+    <td th:text="${movie.id}"></td>
+    <td th:text="${movie.tittle}"></td>
+    <td th:text="${movie.language}"></td>
+    <td th:text="${movie.rate}"></td>
+  </tr>
+</table>
+
+
+<form method="post" th:action="@{/movies/}" th:object="${movie}">
+  <input id="firstName" placeholder="Enter First Name" required type="text" th:field="*{firstName}"/>
+  <input id="lastName" placeholder="Enter Last Name" required type="text" th:field="*{lastName}"/>
+  <select id="role" required th:field="*{role}">
+    <option value="" hidden>Select a role</option>
+    <option value="GUEST" hidden>GUEST</option>
+    <option value="USER" hidden>USER</option>
+    <option value="ADMIN" hidden>ADMIN</option>
+  </select>
+  </div>
+  <input type="submit" value="Create User">
+</form>
+
+</body>
+</html>

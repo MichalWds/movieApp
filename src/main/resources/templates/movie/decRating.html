@@ -8,25 +8,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script type="text/javascript" src="/js/custom.js"></script>
   <script type="text/javascript" src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
-  <title>Movie Site: Movies</title>
+  <title>Movie Site: decrease rating</title>
 </head>
 <body>
-
 <a href="/m"> <input type="button" id="btn1" class="buttonB" value="Return"></a>
-<div class="center" th:if="${ not#lists.isEmpty(movies)}">
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Lang</th>
-      <th>Rating</th>
-    </tr>
-    <tr th:each="movie : ${movies}">
-      <td th:text="${movie.tittle}"></td>
-      <td th:text="${movie.language}"></td>
-      <td th:text="${movie.rate}"></td>
-    </tr>
-  </table>
-</div>
+
+<h1>Decrease Movie rating by one</h1>
+<form th:action="@{/movies/dec}" th:object="${movie}" method="post">
+  <p>Enter Movie Id: <input type="number" th:field="*{id}"/></p>
+  <p><input type="submit" value="Submit" placeholder="Enter movie id" onclick="decFunction()"/></p>
+</form>
 
 </body>
 </html>

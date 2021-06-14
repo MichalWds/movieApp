@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.1/css/bootstrap.min.css"/>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/custom.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/5.0.1/js/bootstrap.min.js"></script>
+  <title>Movie Site: Find movies by equal rating</title>
+</head>
+<body>
+
+<a href="/m"> <input type="button" id="btn1" class="buttonB" value="Return"></a>
+<div class="center" th:if="${ not#lists.isEmpty(movies)}">
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Lang</th>
+      <th>Rating</th>
+    </tr>
+    <tr th:each="movie : ${movies}">
+      <td th:text="${movie.tittle}"></td>
+      <td th:text="${movie.language}"></td>
+      <td th:text="${movie.rate}"></td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

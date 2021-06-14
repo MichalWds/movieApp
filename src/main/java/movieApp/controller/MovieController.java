@@ -26,18 +26,13 @@ public class MovieController {
         this.ratingService = ratingService;
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<Movie>> findAll() throws MovieException {
-//        return ResponseEntity.ok(movieService.findAll());
-//    }
-
     @GetMapping
     public String findAllMovies(@ModelAttribute Movie movie, Model model) throws MovieException {
         model.addAttribute("movie", movie);
         List<Movie> movies = movieService.findAll();
         movies.add(movie);
         model.addAttribute("movies", movies);
-        return "findAllMovies";
+        return "movie/findAllMovies";
     }
 
     @GetMapping("/{id}")
@@ -46,7 +41,7 @@ public class MovieController {
         model.addAttribute("mov", findById);
         model.addAttribute("id", id);
         if (findById.isPresent()) {
-            return "findMovieById";
+            return "movie/findMovieById";
         } else {
             return MovieException.class.toString();
         }
@@ -59,59 +54,110 @@ public class MovieController {
         List<Movie> movies = movieService.findAllMoviesByLang(lang);
         movies.add(movie);
         model.addAttribute("movies", movies);
-        return "findMovieByLang";
+        return "movie/findMovieByLang";
     }
 
     @GetMapping("/hRating/{number}")
-    public ResponseEntity<List<Movie>> findAllMoviesWithRatingHigherThan(@PathVariable int number) {
-        return ResponseEntity.ok(movieService.findAllMoviesWithRatingHigherThan(number));
+    public String findAllMoviesWithRatingHigherThan(@PathVariable int number, Model model, Movie movie) {
+
+        model.addAttribute("movie", movie);
+        List<Movie> movies = movieService.findAllMoviesWithRatingHigherThan(number);
+        movies.add(movie);
+        model.addAttribute("movies", movies);
+        return "movie/findMovieByRatingH";
     }
 
     @GetMapping("/lRating/{number}")
-    public ResponseEntity<List<Movie>> findAllMoviesWithRatingLowerThan(@PathVariable int number) {
-        return ResponseEntity.ok(movieService.findAllMoviesWithRatingLowerThan(number));
+    public String findAllMoviesWithRatingLowerThan(@PathVariable int number, Model model, Movie movie) {
+
+        model.addAttribute("movie", movie);
+        List<Movie> movies = movieService.findAllMoviesWithRatingLowerThan(number);
+        movies.add(movie);
+        model.addAttribute("movies", movies);
+        return "movie/findMovieByRatingL";
     }
 
     @GetMapping("/rating/{number}")
-    public ResponseEntity<List<Movie>> findAllMoviesWithRatingEqualTo(@PathVariable int number) {
-        return ResponseEntity.ok(movieService.findAllMoviesWithRatingEqualToGivenRating(number));
+    public String findAllMoviesWithRatingEqualTo(@PathVariable int number, Movie movie, Model model) {
+
+        model.addAttribute("movie", movie);
+        List<Movie> movies = movieService.findAllMoviesWithRatingEqualToGivenRating(number);
+        movies.add(movie);
+        model.addAttribute("movies", movies);
+        return "movie/findMovieByRatingEq";
     }
 
+    @GetMapping("/save")
+    public String save(Movie movie, Model model) throws RatingException {
 
-    @PostMapping
-    public ResponseEntity<Movie> save(@RequestBody Movie movie) throws RatingException {
-        return ResponseEntity.ok(movieService.save(movie));
+        model.addAttribute("movie", movie);
+        model.addAttribute("id", movie.getId());
+        model.addAttribute("tittle", movie.getTittle());
+        model.addAttribute("language", movie.getLanguage());
+        model.addAttribute("rate", movie.getRate());
+        return "movie/saveMovieForm";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Optional<Movie>> updateByIncreasingRating(@PathVariable int id) throws MovieException {
-        return ResponseEntity.ok(ratingService.increaseRating(id));
+    @PostMapping("/save")
+    public String savePost(@ModelAttribute("movie") Movie movie) throws RatingException {
+        movieService.save(movie);
+        return "movie/savedMovieForm";
     }
 
-    @PutMapping("/{id}/{dId}")
-    public ResponseEntity<Optional<Movie>> updateByDecreasingRating(@PathVariable int id, @PathVariable int dId) throws MovieException {
-        return ResponseEntity.ok(ratingService.decreasingRating(id, dId));
+    @GetMapping("/inc")
+    public String increase(Movie movie, Model model) {
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("id", movie.getId());
+        model.addAttribute("tittle", movie.getTittle());
+        model.addAttribute("language", movie.getLanguage());
+        model.addAttribute("rate", movie.getRate());
+        return "movie/incRating";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) throws MovieException {
-        movieService.deleteById(id);
-        return ResponseEntity.ok().build();
+    @PostMapping("/inc")
+    public String updateByIncreasingRating(@ModelAttribute("movie") Movie movie) throws MovieException {
+        ratingService.increaseRating(movie.getId());
+        return "movieOption";
     }
 
-    @DeleteMapping
-    public ResponseEntity<List<Movie>> deleteAll() throws MovieException {
-        movieService.deleteAll();
-        return ResponseEntity.ok().build();
+    @GetMapping("/dec")
+    public String decrease(Movie movie, Model model) {
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("id", movie.getId());
+        model.addAttribute("tittle", movie.getTittle());
+        model.addAttribute("language", movie.getLanguage());
+        model.addAttribute("rate", movie.getRate());
+        return "movie/decRating";
     }
 
-    //    @GetMapping("/{id}")
-//    public ResponseEntity<Optional<Movie>> findById(@PathVariable int id) throws MovieException {
-//        Optional<Movie> findById = movieService.findById(id);
-//        if (findById.isPresent()) {
-//            return ResponseEntity.ok(findById);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
+    @PostMapping("/dec")
+    public String updateByDecreasingRating(@ModelAttribute("movie") Movie movie) throws MovieException {
+        ratingService.decreasingRating(movie.getId(), 1);
+        return "movieOption";
+    }
+
+    @GetMapping("/del")
+    public String deleteMovie(Movie movie, Model model) {
+
+        model.addAttribute("movie", movie);
+        model.addAttribute("id", movie.getId());
+        model.addAttribute("tittle", movie.getTittle());
+        model.addAttribute("language", movie.getLanguage());
+        model.addAttribute("rate", movie.getRate());
+        return "movie/delMovie";
+    }
+
+    @PostMapping("/del")
+    public String delete(@ModelAttribute("movie") Movie movie) throws MovieException {
+        movieService.deleteById(movie.getId());
+        return "movieOption";
+    }
+
+//    @DeleteMapping
+//    public ResponseEntity<List<Movie>> deleteAll() throws MovieException {
+//        movieService.deleteAll();
+//        return ResponseEntity.ok().build();
 //    }
 }
